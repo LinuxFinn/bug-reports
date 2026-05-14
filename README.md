@@ -1,29 +1,29 @@
-# Software QA testing Bug reports
+# Software QA Testing Portfolio
 
 ## Bug Reports
 
-### [BNET-001] Account creation fails at the captcha.
+### [BNET-001] Account creation fails silently at Captcha checkpoint when using burner emails
 *   **Target Application:** Blizzard Battle.net Registration Portal
 *   **Severity:** High (Blocks user onboarding)
-*   **Testing Type:** Authentication Testing
+*   **Testing Type:** Authentication / Boundary Value Testing
 
 #### Environment
-*   **OS:** CachyOS (Desktop)
+*   **OS:** CachyOS (Linux Desktop)
 *   **Browser:** Google Chrome Version 148.0.7778.167 (Official Build) (64-bit)
 
-*   #### Problem Description
-The registration form rejects email addresses from known email-forwarding/burner domains (e.g., `anonaddy.com`). Instead of notifying the user that the email domain is banned, the system falsely triggers a Captcha validation failure. This results in the user being stuck in account creation without knowing what to do.
+#### Problem Description
+The registration form rejects email addresses from known email-forwarding/burner domains (e.g., `anonaddy.com`). Instead of notifying the user that the email domain is banned, the system falsely triggers a Captcha validation failure. This results in the user being stuck in an infinite loop during account creation without clear feedback on how to proceed.
 
 #### Steps to Reproduce
 1. Navigate to the Blizzard Battle.net account registration page.
-2. Enter the deatils requested by the account portal.
+2. Enter the initial details requested by the account portal.
 3. Input an active email using a burner domain (e.g., `exampleuser@[addyusername].anonaddy.com`).
 4. Successfully complete the required Captcha puzzle challenge.
 5. Click the final registration submission button.
 
 #### Expected Result
-The system should either accept the email registration or display an accurate error message (e.g., *"This email provider is not supported. Please use a standard email address."*).
+The system should either accept the email registration or display an accurate validation message (e.g., *"This email provider is not supported. Please use a standard email address."*).
 
-### Actual Result
+#### Actual Result
 The page refreshes the Captcha widget and displays a misleading error: 
 > *"Invalid Response"*
