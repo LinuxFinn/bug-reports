@@ -55,7 +55,10 @@ The beatmap update mechanism fails to write new map assets to the local database
 The client should successfully overwrite the old beatmap assets with the new file version. Playing the map should not trigger an outdated warning, online scores should submit normally, and the update prompt should disappear from the song selection menu.
 
 #### Actual Result
-The client throws an in-game warning message during gameplay initialization:
-> *"the beatmap does not match the online version. Please update or redownload it. Your score will not be submitted."*
+The client exhibits one of two behaviors depending on asset write success:
+1.  **Asset Write Failure (Primary):** The client throws an in-game warning message during gameplay initialization: *"the beatmap does not match the online version. Please update or redownload it. Your score will not be submitted."*
+2.  **UI Refresh Failure (Variation):** The assets update successfully, allowing score submission without warnings. However, the song selection menu fails to update its state, leaving the original update prompt visible. 
+
+In both scenarios, returning to the song selection menu traps the user in an infinite update prompt loop.
 
 Upon returning to the song selection menu, the map still displays the original update prompt, trapping the user in the cycle described above.
