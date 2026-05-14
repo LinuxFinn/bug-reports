@@ -26,4 +26,4 @@ The system should either accept the email registration or display an accurate er
 
 ### Actual Result
 The page refreshes the Captcha widget and displays a misleading error: 
-> *Invalid Response"*
+> *"Invalid Response"*
